@@ -1,4 +1,4 @@
-package com.aware.plugin.template;
+package com.aware.plugin.plugin_band;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -6,12 +6,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import com.aware.Aware;
 import com.aware.ui.Stream_UI;
 import com.aware.utils.IContextCard;
 

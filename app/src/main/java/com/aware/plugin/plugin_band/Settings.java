@@ -1,6 +1,5 @@
-package com.aware.plugin.template;
+package com.aware.plugin.plugin_band;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
