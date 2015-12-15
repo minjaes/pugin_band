@@ -142,7 +142,7 @@ public class Plugin extends Aware_Plugin {
         return 1;
     }
 
-    @Override
+    @     Override
     public void onDestroy() {
         super.onDestroy();
 
@@ -150,6 +150,7 @@ public class Plugin extends Aware_Plugin {
 
         //Deactivate any sensors/plugins you activated here
         //e.g., Aware.setSetting(this, Aware_Preferences.STATUS_ACCELEROMETER, false);
+
 
 
         /**

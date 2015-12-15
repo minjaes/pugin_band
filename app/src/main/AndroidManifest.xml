@@ -38,17 +38,6 @@
         <activity android:name="com.aware.plugin.plugin_band.Settings" android:exported="true" android:theme="@style/Theme.Aware" />
 
 
-        <activity
-            android:name=".calendarActivity"
-            >
-        </activity>
-
-        <receiver android:name=".alarmReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-
-            </intent-filter>
-        </receiver>
 
     </application>
 
