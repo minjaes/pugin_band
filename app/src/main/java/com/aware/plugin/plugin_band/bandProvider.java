@@ -14,7 +14,6 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.BaseColumns;
 import android.util.Log;
 
@@ -22,9 +21,11 @@ import com.aware.Aware;
 import com.aware.utils.DatabaseHelper;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 
+/**
+ * provider to manage the phone DB
+ */
 
 public class bandProvider extends ContentProvider {
 

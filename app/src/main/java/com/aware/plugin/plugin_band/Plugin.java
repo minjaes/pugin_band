@@ -39,40 +39,11 @@ import com.microsoft.band.sensors.HeartRateConsentListener;
 import com.microsoft.band.sensors.SampleRate;
 import com.microsoft.band.sensors.UVIndexLevel;
 
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.TimeZone;
 
 
-
-
-import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
-
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.json.JsonFactory;
-import com.google.api.client.json.gson.GsonFactory;
-import com.google.api.client.util.DateTime;
-import com.google.api.client.util.ExponentialBackOff;
-import com.google.api.services.calendar.CalendarScopes;
-import com.google.api.services.calendar.model.CalendarList;
-import com.google.api.services.calendar.model.CalendarListEntry;
-import com.google.api.services.calendar.model.Event;
-import com.google.api.services.calendar.model.EventDateTime;
-
+/**
+ * Gets the data from Microsoft Band and writes to phone DB
+ */
 public class Plugin extends Aware_Plugin {
 
     private BandClient client = null;
@@ -151,8 +122,6 @@ public class Plugin extends Aware_Plugin {
         //Deactivate any sensors/plugins you activated here
         //e.g., Aware.setSetting(this, Aware_Preferences.STATUS_ACCELEROMETER, false);
 
-
-
         /**
         try {
             client.getSensorManager().unregisterAccelerometerEventListeners();
@@ -166,6 +135,9 @@ public class Plugin extends Aware_Plugin {
     }
 
 
+    /**
+     * registers the sensors.
+     */
     private class appTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
@@ -204,7 +176,7 @@ public class Plugin extends Aware_Plugin {
             return null;
         }
     }
-
+    //listener for acceloerometer.
     private BandAccelerometerEventListener mAccelerometerEventListener = new BandAccelerometerEventListener() {
         @Override
         public void onBandAccelerometerChanged(final BandAccelerometerEvent event) {
@@ -221,7 +193,7 @@ public class Plugin extends Aware_Plugin {
         }
     };
 
-
+    //listener for heartRate
     private BandHeartRateEventListener mHeartRateEventListener = new BandHeartRateEventListener() {
         @Override
         public void onBandHeartRateChanged(final BandHeartRateEvent event) {
@@ -233,7 +205,7 @@ public class Plugin extends Aware_Plugin {
         }
     };
 
-
+    //listener for heartrate consent
     private HeartRateConsentListener mHeartRateConsentListener = new HeartRateConsentListener() {
         @Override
         public void userAccepted(boolean b) {
@@ -268,6 +240,7 @@ public class Plugin extends Aware_Plugin {
         }
     }
 
+    //listener for skinTemperature
     private BandSkinTemperatureEventListener mSkinTemperatureEventListener = new BandSkinTemperatureEventListener() {
         @Override
         public void onBandSkinTemperatureChanged(BandSkinTemperatureEvent event) {
@@ -280,6 +253,7 @@ public class Plugin extends Aware_Plugin {
         }
     };
 
+    //listener for pedometer
     private BandPedometerEventListener mPedometerEventListener = new BandPedometerEventListener() {
         @Override
         public void onBandPedometerChanged(BandPedometerEvent event) {
@@ -293,6 +267,7 @@ public class Plugin extends Aware_Plugin {
         }
     };
 
+    //listener for calories
     private BandCaloriesEventListener mCaloriesEventListener = new BandCaloriesEventListener() {
         @Override
         public void onBandCaloriesChanged(BandCaloriesEvent event) {
@@ -305,6 +280,7 @@ public class Plugin extends Aware_Plugin {
         }
     };
 
+    //listener for distance
     private BandDistanceEventListener mDistanceEventListener = new BandDistanceEventListener() {
         @Override
         public void onBandDistanceChanged(BandDistanceEvent event) {
@@ -318,6 +294,7 @@ public class Plugin extends Aware_Plugin {
         }
     };
 
+    //listener for UV
     private BandUVEventListener mUVEventListener = new BandUVEventListener() {
         @Override
         public void onBandUVChanged(BandUVEvent event) {
@@ -330,6 +307,7 @@ public class Plugin extends Aware_Plugin {
         }
     };
 
+    //listener for contact
     private BandContactEventListener mContactEventListener = new BandContactEventListener() {
         @Override
         public void onBandContactChanged(BandContactEvent event) {
@@ -341,6 +319,7 @@ public class Plugin extends Aware_Plugin {
     };
 
 
+    //gets the conneted band client
     private boolean getConnectedBandClient() throws InterruptedException, BandException {
         if (client == null) {
             BandInfo[] devices = BandClientManager.getInstance().getPairedBands();
@@ -356,6 +335,7 @@ public class Plugin extends Aware_Plugin {
         return ConnectionState.CONNECTED == client.connect().await();
     }
 
+    //writes the data to the phone DB
     private void writeOnDB (long timeStamp, float value, String type){
         ContentValues new_data = new ContentValues();
         new_data.put(bandProvider.Band_Data.DEVICE_ID, Aware.getSetting(getApplicationContext(), Aware_Preferences.DEVICE_ID));
